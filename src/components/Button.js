@@ -1,4 +1,6 @@
-import styled from 'styled-components';
+/* eslint-disable operator-linebreak */
+/* eslint-disable implicit-arrow-linebreak */
+import styled, { css } from 'styled-components';
 
 export default styled.button`
   height: 52px;
@@ -24,4 +26,18 @@ export default styled.button`
     background-color: #ccc;
     cursor: default;
   }
+
+  ${({ danger, theme }) =>
+    danger &&
+    css`
+      background: ${theme.colors.danger.main};
+
+      &:hover {
+        background-color: ${theme.colors.danger.light};
+      }
+
+      &:active {
+        background-color: ${theme.colors.danger.dark};
+      }
+    `}
 `;
