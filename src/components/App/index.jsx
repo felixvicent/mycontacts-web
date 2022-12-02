@@ -4,6 +4,7 @@ import GlobalStyles from '../../assets/styles/global';
 import defaltTheme from '../../assets/styles/themes/default';
 
 import { Header } from '../Header';
+import { ContacsList } from '../ContactsList';
 
 import { Container } from './styles';
 
@@ -13,6 +14,7 @@ function App() {
       <GlobalStyles />
       <Container>
         <Header />
+        <ContacsList />
       </Container>
     </ThemeProvider>
   );
