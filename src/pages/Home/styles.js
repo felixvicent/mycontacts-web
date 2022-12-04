@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -49,23 +50,26 @@ export const Header = styled.div`
   }
 `;
 
-export const ListContainer = styled.div`
+export const ListHeader = styled.header`
   margin-top: 24px;
+  margin-bottom: 8px;
 
-  header {
-    margin-bottom: 8px;
+  button {
+    background-color: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
 
-    button {
-      background-color: transparent;
-      border: none;
-      display: flex;
-      align-items: center;
+    span {
+      color: ${({ theme }) => theme.colors.primary.main};
+      margin-right: 8px;
+      font-weight: bold;
+    }
 
-      span {
-        color: ${({ theme }) => theme.colors.primary.main};
-        margin-right: 8px;
-        font-weight: bold;
-      }
+    img {
+      transition: transform 0.2s ease;
+      transform: ${({ orderBy }) =>
+        orderBy === 'desc' ? 'rotate(0deg)' : 'rotate(180deg)'};
     }
   }
 `;
