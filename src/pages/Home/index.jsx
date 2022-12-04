@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
 import formatPhone from '../../utils/formatPhone';
@@ -20,10 +20,6 @@ export function Home() {
   const [orderBy, setOrderBy] = useState('asc');
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filteredContacts = contacts.filter((contact) =>
-    contact.name.toLowerCase().includes(searchTerm.toLowerCase()),
-  );
-
   useEffect(() => {
     fetch(`http://localhost:3333/contacts?orderBy=${orderBy}`).then(
       async (response) => {
@@ -32,6 +28,14 @@ export function Home() {
       },
     );
   }, [orderBy]);
+
+  const filteredContacts = useMemo(
+    () =>
+      contacts.filter((contact) =>
+        contact.name.toLowerCase().includes(searchTerm.toLowerCase()),
+      ),
+    [contacts, searchTerm],
+  );
 
   function handleToggleOrderBy() {
     setOrderBy((prevState) => (prevState === 'asc' ? 'desc' : 'asc'));
