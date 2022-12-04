@@ -7,6 +7,8 @@ import arrow from '../../assets/images/icons/arrow.svg';
 import edit from '../../assets/images/icons/edit.svg';
 import trash from '../../assets/images/icons/trash.svg';
 
+import { Loader } from '../../components/Loader';
+
 import {
   Container,
   InputSearchContainer,
@@ -19,14 +21,18 @@ export function Home() {
   const [contacts, setContacts] = useState([]);
   const [orderBy, setOrderBy] = useState('asc');
   const [searchTerm, setSearchTerm] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:3333/contacts?orderBy=${orderBy}`).then(
-      async (response) => {
+    setIsLoading(true);
+    fetch(`http://localhost:3333/contacts?orderBy=${orderBy}`)
+      .then(async (response) => {
         const json = await response.json();
         setContacts(json);
-      },
-    );
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, [orderBy]);
 
   const filteredContacts = useMemo(
@@ -47,6 +53,8 @@ export function Home() {
 
   return (
     <Container>
+      <Loader isLoading={isLoading} />
+
       <InputSearchContainer>
         <input
           value={searchTerm}
