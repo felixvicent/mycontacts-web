@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import arrow from '../../assets/images/icons/arrow.svg';
@@ -13,6 +14,17 @@ import {
 } from './styles';
 
 export function Home() {
+  const [contacts, setContacts] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:3333/contacts')
+      .then(async (response) => {
+        const json = await response.json();
+        setContacts(json);
+      })
+      .catch((error) => console.log('error', error));
+  }, []);
+
   return (
     <Container>
       <InputSearchContainer>
