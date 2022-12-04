@@ -24,15 +24,22 @@ export function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setIsLoading(true);
-    fetch(`http://localhost:3333/contacts?orderBy=${orderBy}`)
-      .then(async (response) => {
+    async function loadContacts() {
+      try {
+        setIsLoading(true);
+        const response = await fetch(
+          `http://localhost:3333/contacts?orderBy=${orderBy}`,
+        );
+
         const json = await response.json();
+
         setContacts(json);
-      })
-      .finally(() => {
+      } finally {
         setIsLoading(false);
-      });
+      }
+    }
+
+    loadContacts();
   }, [orderBy]);
 
   const filteredContacts = useMemo(
