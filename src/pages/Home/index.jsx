@@ -1,6 +1,8 @@
 import { useEffect, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
+import ContactsService from '../../services/ContactsService';
+
 import formatPhone from '../../utils/formatPhone';
 
 import arrow from '../../assets/images/icons/arrow.svg';
@@ -27,13 +29,10 @@ export function Home() {
     async function loadContacts() {
       try {
         setIsLoading(true);
-        const response = await fetch(
-          `http://localhost:3333/contacts?orderBy=${orderBy}`,
-        );
 
-        const json = await response.json();
+        const contactsList = await ContactsService.listContacts(orderBy);
 
-        setContacts(json);
+        setContacts(contactsList);
       } finally {
         setIsLoading(false);
       }
