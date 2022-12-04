@@ -16,6 +16,8 @@
     "import/prefer-default-export": "off",
     "react/jsx-no-bind": "off",
     "implicit-arrow-linebreak": "off",
-    "function-paren-newline": "off"
+    "function-paren-newline": "off",
+    "operator-linebreak": "off",
+    "object-curly-newline": "off"
   }
 }
