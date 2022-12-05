@@ -8,8 +8,10 @@ import formatPhone from '../../utils/formatPhone';
 import arrow from '../../assets/images/icons/arrow.svg';
 import edit from '../../assets/images/icons/edit.svg';
 import trash from '../../assets/images/icons/trash.svg';
+import sad from '../../assets/images/sad.svg';
 
 import { Loader } from '../../components/Loader';
+import Button from '../../components/Button';
 
 import {
   Container,
@@ -17,6 +19,7 @@ import {
   Header,
   ListHeader,
   Card,
+  ErrorContainer,
 } from './styles';
 
 export function Home() {
@@ -24,6 +27,7 @@ export function Home() {
   const [orderBy, setOrderBy] = useState('asc');
   const [searchTerm, setSearchTerm] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     async function loadContacts() {
@@ -33,9 +37,8 @@ export function Home() {
         const contactsList = await ContactsService.listContacts(orderBy);
 
         setContacts(contactsList);
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.log(error);
+      } catch {
+        setHasError(true);
       } finally {
         setIsLoading(false);
       }
@@ -73,13 +76,25 @@ export function Home() {
         />
       </InputSearchContainer>
 
-      <Header>
-        <strong>
-          {filteredContacts.length}{' '}
-          {filteredContacts.length === 1 ? 'Contato' : 'Contatos'}
-        </strong>
+      <Header hasError={hasError}>
+        {!hasError && (
+          <strong>
+            {filteredContacts.length}{' '}
+            {filteredContacts.length === 1 ? 'Contato' : 'Contatos'}
+          </strong>
+        )}
         <Link to="/new">Novo contato</Link>
       </Header>
+
+      {hasError && (
+        <ErrorContainer>
+          <img src={sad} alt="Sad Face" />
+          <div className="details">
+            <strong>Ocorreu um erro ao obter seus contatos</strong>
+            <Button type="button">Tentar novamente</Button>
+          </div>
+        </ErrorContainer>
+      )}
 
       {filteredContacts.length > 0 && (
         <ListHeader orderBy={orderBy}>
