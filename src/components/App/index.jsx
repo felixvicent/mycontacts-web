@@ -5,6 +5,7 @@ import GlobalStyles from '../../assets/styles/global';
 import defaltTheme from '../../assets/styles/themes/default';
 
 import { Header } from '../Header';
+import { ToastContainer } from '../Toast/ToastContainer';
 
 import { Container } from './styles';
 import { Routes } from '../../routes';
@@ -14,6 +15,7 @@ function App() {
     <BrowserRouter>
       <ThemeProvider theme={defaltTheme}>
         <GlobalStyles />
+        <ToastContainer />
         <Container>
           <Header />
           <Routes />
