@@ -15,7 +15,7 @@ import Select from '../Select';
 
 import { ButtonContainer, Form } from './styles';
 
-export function ContactForm({ buttonLabel }) {
+export function ContactForm({ buttonLabel, onSubmit }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -68,6 +68,8 @@ export function ContactForm({ buttonLabel }) {
 
   function handleSubmit(event) {
     event.preventDefault();
+
+    onSubmit({ name, email, phone, categoryId });
   }
 
   return (
@@ -121,4 +123,5 @@ export function ContactForm({ buttonLabel }) {
 
 ContactForm.propTypes = {
   buttonLabel: PropTypes.string.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
