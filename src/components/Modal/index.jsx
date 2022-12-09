@@ -1,9 +1,9 @@
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
 import { Button } from '../Button';
 
 import { Overlay, Container, Footer } from './styles';
+import { ReactPortal } from '../ReactPortal';
 
 export function Modal({
   visible,
@@ -19,34 +19,36 @@ export function Modal({
   if (!visible) {
     return null;
   }
-  return ReactDOM.createPortal(
-    <Overlay>
-      <Container danger={danger}>
-        <h1>{title}</h1>
 
-        <div className="modal-body">{children}</div>
+  return (
+    <ReactPortal containerId="modal-root">
+      <Overlay>
+        <Container danger={danger}>
+          <h1>{title}</h1>
 
-        <Footer>
-          <button
-            disabled={isLoading}
-            className="cancel-button"
-            type="button"
-            onClick={onCancel}
-          >
-            {cancelLabel}
-          </button>
-          <Button
-            isLoading={isLoading}
-            danger={danger}
-            type="button"
-            onClick={onConfirm}
-          >
-            {confirmLabel}
-          </Button>
-        </Footer>
-      </Container>
-    </Overlay>,
-    document.getElementById('modal-root'),
+          <div className="modal-body">{children}</div>
+
+          <Footer>
+            <button
+              disabled={isLoading}
+              className="cancel-button"
+              type="button"
+              onClick={onCancel}
+            >
+              {cancelLabel}
+            </button>
+            <Button
+              isLoading={isLoading}
+              danger={danger}
+              type="button"
+              onClick={onConfirm}
+            >
+              {confirmLabel}
+            </Button>
+          </Footer>
+        </Container>
+      </Overlay>
+    </ReactPortal>
   );
 }
 
