@@ -7,6 +7,7 @@ import { Overlay, Container, Footer } from './styles';
 
 export function Modal({
   visible,
+  isLoading,
   danger,
   title,
   children,
@@ -26,10 +27,20 @@ export function Modal({
         <div className="modal-body">{children}</div>
 
         <Footer>
-          <button className="cancel-button" type="button" onClick={onCancel}>
+          <button
+            disabled={isLoading}
+            className="cancel-button"
+            type="button"
+            onClick={onCancel}
+          >
             {cancelLabel}
           </button>
-          <Button danger={danger} type="button" onClick={onConfirm}>
+          <Button
+            isLoading={isLoading}
+            danger={danger}
+            type="button"
+            onClick={onConfirm}
+          >
             {confirmLabel}
           </Button>
         </Footer>
@@ -48,10 +59,12 @@ Modal.propTypes = {
   onCancel: PropTypes.func.isRequired,
   onConfirm: PropTypes.func.isRequired,
   visible: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool,
 };
 
 Modal.defaultProps = {
   danger: false,
   cancelLabel: 'Cancelar',
   confirmLabel: 'Confirmar',
+  isLoading: false,
 };
