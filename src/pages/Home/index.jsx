@@ -16,6 +16,7 @@ import magnifierQuestion from '../../assets/images/magnifier-question.svg';
 
 import { Loader } from '../../components/Loader';
 import { Button } from '../../components/Button';
+import { Modal } from '../../components/Modal';
 
 import {
   Container,
@@ -77,6 +78,16 @@ export function Home() {
   return (
     <Container>
       <Loader isLoading={isLoading} />
+
+      <Modal
+        title="Tem certeza que deseja remover o contato ”Félix”?"
+        danger
+        confirmLabel="Deletar"
+        onCancel={() => alert('cancel')}
+        onConfirm={() => alert('confirm')}
+      >
+        <h1>FElps</h1>
+      </Modal>
 
       {contacts.length > 0 && (
         <InputSearchContainer>
