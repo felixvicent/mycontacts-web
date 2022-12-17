@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable indent */
-import { useEffect, useState, useMemo, useCallback } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import ContactsService from '../../services/ContactsService';
@@ -9,25 +9,25 @@ import formatPhone from '../../utils/formatPhone';
 
 import toast from '../../utils/toast';
 
+import emptyBox from '../../assets/images/empty-box.svg';
 import arrow from '../../assets/images/icons/arrow.svg';
 import edit from '../../assets/images/icons/edit.svg';
 import trash from '../../assets/images/icons/trash.svg';
-import sad from '../../assets/images/sad.svg';
-import emptyBox from '../../assets/images/empty-box.svg';
 import magnifierQuestion from '../../assets/images/magnifier-question.svg';
+import sad from '../../assets/images/sad.svg';
 
-import { Loader } from '../../components/Loader';
 import { Button } from '../../components/Button';
+import { Loader } from '../../components/Loader';
 import { Modal } from '../../components/Modal';
 
 import {
-  Container,
-  InputSearchContainer,
-  Header,
-  ListHeader,
   Card,
-  ErrorContainer,
+  Container,
   EmptyListContainer,
+  ErrorContainer,
+  Header,
+  InputSearchContainer,
+  ListHeader,
   SearchNotFoundContainer,
 } from './styles';
 
@@ -204,8 +204,8 @@ export function Home() {
               <div className="info">
                 <div className="contact-name">
                   <strong>{contact.name}</strong>
-                  {contact.category_name && (
-                    <small>{contact.category_name}</small>
+                  {contact.category.name && (
+                    <small>{contact.category.name}</small>
                   )}
                 </div>
                 <span>{contact.email}</span>

@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
-import { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 
 import useSafeAsyncState from '../../hooks/useSafeAsyncState';
 
-import isEmailValid from '../../utils/isEmailValid';
 import formatPhone from '../../utils/formatPhone';
+import isEmailValid from '../../utils/isEmailValid';
 
 import CategoriesService from '../../services/CategoriesService';
 
@@ -33,7 +33,7 @@ export const ContactForm = forwardRef(({ buttonLabel, onSubmit }, ref) => {
         setName(contact.name ?? '');
         setEmail(contact.email ?? '');
         setPhone(formatPhone(contact.phone ?? ''));
-        setCategoryId(contact.category_id ?? '');
+        setCategoryId(contact.category.id ?? '');
       },
       resetFields: () => {
         setName('');
