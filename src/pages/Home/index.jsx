@@ -27,7 +27,6 @@ export function Home() {
     filteredContacts,
     handleTryAgain,
     orderBy,
-    isPending,
     handleToggleOrderBy,
     handleDeleteContact,
   } = useHome();
@@ -56,7 +55,6 @@ export function Home() {
 
       {hasContacts && (
         <>
-          {isPending && <h1>Carregando</h1>}
           <ContactsList
             filteredContacts={filteredContacts}
             onDeleteContact={handleDeleteContact}
