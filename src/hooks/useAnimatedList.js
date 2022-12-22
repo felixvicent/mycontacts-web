@@ -7,11 +7,16 @@ export default function useAnimatedList(initialValue = []) {
   const animatedRefs = useRef(new Map());
   const animationEndListeners = useRef(new Map());
 
-  const handleAnimationEnd = useCallback((id) => {
-    setItems((prevState) => prevState.filter((item) => item.id !== id));
+  const handleAnimationEnd = useCallback((itemId) => {
+    const removeListener = animationEndListeners.current.get(itemId);
+    removeListener();
 
+    animationEndListeners.current.delete(itemId);
+    animatedRefs.current.delete(itemId);
+
+    setItems((prevState) => prevState.filter((item) => item.id !== itemId));
     setPendingRemovalItemsId((prevState) =>
-      prevState.filter((itemId) => itemId !== id),
+      prevState.filter((id) => itemId !== id),
     );
   }, []);
 
@@ -19,16 +24,27 @@ export default function useAnimatedList(initialValue = []) {
     pendingRemovalItemsId.forEach((itemId) => {
       const animatedRef = animatedRefs.current.get(itemId);
       const alreadyHasListener = animationEndListeners.current.has(itemId);
+      const animatedElent = animatedRef?.current;
 
-      if (animatedRef?.current && !alreadyHasListener) {
-        animationEndListeners.current.set(itemId, true);
+      if (animatedElent && !alreadyHasListener) {
+        const onAnimantionEnd = () => handleAnimationEnd(itemId);
+        const removeListener = () => {
+          animatedElent.removeEventListener('animationend', onAnimantionEnd);
+        };
 
-        animatedRef.current.addEventListener('animationend', () => {
-          handleAnimationEnd(itemId);
-        });
+        animatedElent.addEventListener('animationend', onAnimantionEnd);
+        animationEndListeners.current.set(itemId, removeListener);
       }
     });
   }, [pendingRemovalItemsId, handleAnimationEnd]);
+
+  useEffect(() => {
+    const removeListeners = animationEndListeners.current;
+
+    return () => {
+      removeListeners.forEach((removeListener) => removeListener());
+    };
+  }, []);
 
   const handleRemoveItem = useCallback((id) => {
     setPendingRemovalItemsId((prevState) => [...prevState, id]);
