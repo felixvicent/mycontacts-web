@@ -25,6 +25,6 @@ export const Overlay = styled.div`
   ${({ isLeaving }) =>
     isLeaving &&
     css`
-      animation: ${fadeOut} 0.3s;
+      animation: ${fadeOut} 0.3s forwards;
     `}
 `;
