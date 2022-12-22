@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { ToastMessage } from '../ToastMessage';
+import ToastMessage from '../ToastMessage';
 import { Container } from './styles';
 
 import { toastEventManager } from '../../../utils/toast';
