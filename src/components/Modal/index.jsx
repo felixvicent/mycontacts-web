@@ -4,7 +4,7 @@ import { Button } from '../Button';
 
 import { Overlay, Container, Footer } from './styles';
 import { ReactPortal } from '../ReactPortal';
-import useAnimatedUnmount from '../../hooks/useAnimatedUnmnount,';
+import useAnimatedUnmount from '../../hooks/useAnimatedUnmnount';
 
 export function Modal({
   visible,

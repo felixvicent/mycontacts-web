@@ -7,6 +7,7 @@ import { toastEventManager } from '../../../utils/toast';
 
 export function ToastContainer() {
   const [messages, setMessages] = useState([]);
+  const [pendingRemovalMessagesId, setPendingRemovalMessagesId] = useState([]);
 
   useEffect(() => {
     function handleAddToast({ type, text, duration }) {
@@ -23,9 +24,7 @@ export function ToastContainer() {
   }, []);
 
   const handleRemoveMessage = useCallback((id) => {
-    setMessages((prevState) =>
-      prevState.filter((message) => message.id !== id),
-    );
+    setPendingRemovalMessagesId((prevState) => [...prevState, id]);
   }, []);
 
   return (
@@ -35,6 +34,7 @@ export function ToastContainer() {
           onRemoveMessage={handleRemoveMessage}
           key={message.id}
           message={message}
+          isLeaving={pendingRemovalMessagesId.includes(message.id)}
         />
       ))}
     </Container>
