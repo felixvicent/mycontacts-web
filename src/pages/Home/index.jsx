@@ -8,7 +8,7 @@ import { Header } from './components/Header';
 import { ErrorStatus } from './components/ErrorStatus';
 import { EmptyList } from './components/EmptyList';
 import { SearchNotFound } from './components/SearchNotFound';
-import { ContactsList } from './components/ContactsList';
+import ContactsList from './components/ContactsList';
 
 import { Modal } from '../../components/Modal';
 
@@ -27,6 +27,7 @@ export function Home() {
     filteredContacts,
     handleTryAgain,
     orderBy,
+    isPending,
     handleToggleOrderBy,
     handleDeleteContact,
   } = useHome();
@@ -55,6 +56,7 @@ export function Home() {
 
       {hasContacts && (
         <>
+          {isPending && <h1>Carregando</h1>}
           <ContactsList
             filteredContacts={filteredContacts}
             onDeleteContact={handleDeleteContact}
