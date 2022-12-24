@@ -37,17 +37,29 @@ export default function useContactForm(onSubmit, ref) {
   );
 
   useEffect(() => {
+    const controller = new AbortController();
+
     async function loadCategories() {
       try {
-        const categoriesList = await CategoriesService.listCategories();
+        const categoriesList = await CategoriesService.listCategories(
+          controller.signal,
+        );
 
         setCategories(categoriesList);
+      } catch (error) {
+        if (error instanceof DOMException && error.name === 'AbortError') {
+          return;
+        }
       } finally {
         setIsLoadingCategories(false);
       }
     }
 
     loadCategories();
+
+    return () => {
+      controller.abort();
+    };
   }, [setCategories, setIsLoadingCategories]);
 
   const { setError, removeError, getErrorMessageByFieldName, errors } =
