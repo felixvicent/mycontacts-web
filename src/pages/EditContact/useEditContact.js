@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import useSafeAsyncAction from '../../hooks/useSafeAsyncAction';
 
@@ -12,7 +12,7 @@ export default function useEditContact() {
   const [contactName, setContactName] = useState('');
   const contactFormRef = useRef(null);
 
-  const history = useHistory();
+  // const history = useHistory();
 
   const { id } = useParams();
 
@@ -38,7 +38,7 @@ export default function useEditContact() {
           return;
         }
         safeAsyncAction(() => {
-          history.push('/');
+          // history.push('/');
           toast({ type: 'danger', text: 'Contato não encontrado!' });
         });
       }
@@ -49,7 +49,7 @@ export default function useEditContact() {
     return () => {
       controller.abort();
     };
-  }, [id, history, safeAsyncAction]);
+  }, [id, safeAsyncAction]);
 
   async function handleSubmit(contact) {
     try {

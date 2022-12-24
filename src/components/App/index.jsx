@@ -8,7 +8,7 @@ import { Header } from '../Header';
 import { ToastContainer } from '../Toast/ToastContainer';
 
 import { Container } from './styles';
-import { Routes } from '../../routes';
+import { Routes } from '../../Routes';
 
 function App() {
   return (
